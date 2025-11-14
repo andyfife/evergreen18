@@ -1,0 +1,373 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum TaskStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum MediaAssetType {
+  THUMBNAIL_IMAGE
+  VIDEO_POSTER
+  VIDEO
+}
+enum Gender {
+  MALE 
+  FEMALE
+  RATHER_NOT_SAY
+}
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  status       String?
+  user_id      String
+  expires      DateTime
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model User {
+  id                        String   @id
+  user_id                   String   @unique
+  username                  String?
+  email_address             String?
+  protectedAreaPasswordHash String?
+  role                      UserRole @default(USER)
+  status                    String?
+  image_url                 String?
+  first_name                String?
+  last_name                 String?
+  banned                   Boolean?
+  last_sign_in_at          DateTime?
+  object                   String?
+  password_enabled         Boolean?
+  primary_email_address_id String?
+  primary_phone_number_id  String?
+  profile_image_url        String?
+  name                     String?
+  two_factor_enabled       Boolean?
+  isActive                 Boolean   @default(false)
+  gender                   Gender?
+   birthDate               DateTime? 
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime? @updatedAt
+
+  sessions Session[]
+
+  sentMessages       Message[] @relation("Sender")
+  receivedMessages   Message[] @relation("Recipient")
+  unreadMessageCount Int?
+
+  avatars         Avatar[] @relation("UserAvatars")
+  currentAvatarId String?  @unique
+  currentAvatar   Avatar?  @relation("CurrentAvatar", fields: [currentAvatarId], references: [id], onDelete: SetNull)
+
+  userMedia UserMedia[]
+  contacts  Contact[]
+  person    Person?
+
+  // Friend relationships
+  friendsInitiated Friendship[] @relation("FriendshipInitiator")
+  friendsReceived  Friendship[] @relation("FriendshipReceiver")
+
+  // Friend invites sent
+  sentInvites FriendInvite[]
+
+  @@index([user_id])
+}
+
+model Avatar {
+  id      String @id @default(uuid())
+  user_id String
+  user    User   @relation("UserAvatars", fields: [user_id], references: [id], onDelete: Cascade)
+
+  avatarImage_url String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  userCurrent     User?    @relation("CurrentAvatar")
+}
+
+model Message {
+  id          String @id @default(cuid())
+  content     String
+  senderId    String
+  sender      User   @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
+  recipientId String
+  recipient   User   @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  fulfilled      Boolean  @default(false)
+  messageRead    Boolean  @default(false)
+  messageDeleted Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  @@index([senderId])
+  @@index([recipientId])
+}
+
+enum MediaVisibility {
+  PRIVATE
+  FRIENDS
+  PUBLIC
+}
+
+enum ModerationStatus {
+  PENDING
+  PROCESSING
+  APPROVED
+  REJECTED
+  REVIEW
+}
+
+enum UserMediaType {
+  USER_IMAGE
+  USER_VIDEO
+}
+
+model UserMedia {
+  id           String                @id @default(uuid())
+  userId       String
+  user         User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url          String? // Make nullable since it's set after upload
+  thumbnailUrl String?
+  name         String?
+  description  String?
+  transcripts  UserMediaTranscript[]
+  type         UserMediaType?        @default(USER_IMAGE)
+  visibility   MediaVisibility       @default(PRIVATE)
+  notifications     Notification[]
+  moderationStatus  ModerationStatus @default(PENDING)
+  moderationNotes   String?
+  isPrimaryImage    Boolean          @default(false)
+  approvalStatus    ApprovalStatus   @default(DRAFT)
+  approvedByAdminId String?
+  approvedAt        DateTime?
+  originalFilename  String? // Original uploaded filename
+  fileSize          BigInt? // File size in bytes
+  mimeType          String? // video/mp4, etc.
+  duration          Int? // Video duration in seconds
+  width             Int? // Video width
+  height            Int? // Video height
+  posterUrl         String? // Custom thumbnail/poster
+  deletedAt         DateTime? // Soft delete
+  posterKey    String?
+  speakerMetadata Json? // Pre-defined speaker names for transcript
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  personId  String?
+  person    Person?  @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([visibility])
+  @@index([createdAt])
+  @@index([moderationStatus]) // ADD THIS INDEX
+  @@index([approvalStatus]) // ADD THIS INDEX
+}
+
+model Person {
+  id              String      @id @default(cuid())
+  name            String
+  nameZh          String?
+  isFounder       Boolean     @default(false)
+  honorificPrefix String?
+  honorificSuffix String?
+  userId          String?     @unique
+  user            User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  media           UserMedia[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  positions PersonPosition[]
+
+  @@unique([name, honorificPrefix])
+  @@index([name])
+}
+
+model PersonPosition {
+  id       String @id @default(cuid())
+  personId String
+  person   Person @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  category  PersonCategory @default(STAFF_AND_VOLUNTEERS)
+  imageUrl  String?
+  title     String?
+  sortOrder Int            @default(999)
+  isEmeriti Boolean        @default(false)
+  years     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([personId, category, isEmeriti])
+  @@index([category, isEmeriti, sortOrder])
+}
+
+enum PersonCategory {
+  BOARD_OF_DIRECTORS
+  ADVISORY_BOARD
+  STAFF_AND_VOLUNTEERS
+}
+
+enum TranscriptProvider {
+  INTERNAL
+  WHISPER
+  ASSEMBLYAI
+  DEEPGRAM
+  OPENAI
+  OTHER
+}
+
+enum TranscriptStatus {
+  QUEUED
+  PROCESSING
+  FAILED
+  COMPLETED
+  REJECTED
+}
+
+model UserMediaTranscript {
+  id           String    @id @default(cuid())
+  userMediaId  String
+  status       String
+  text         String?   @db.Text
+  srtUrl       String?
+  vttUrl       String?
+  fileName     String?
+  desiredVisibility MediaVisibility?
+  speakerMappings Json?   // Maps SPEAKER_00 -> "Alice", etc.
+  isCurrent    Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  error        String?
+  userApproved Boolean   @default(false)
+  userMedia    UserMedia @relation(fields: [userMediaId], references: [id], onDelete: Cascade)
+
+  @@index([userMediaId, isCurrent])
+  @@index([status])
+}
+
+enum ApprovalStatus {
+  DRAFT
+  AWAITING_ADMIN
+  APPROVED
+  REJECTED
+}
+
+model Contact {
+  id          String   @id @default(cuid())
+  name        String?
+  email       String?
+  comment     String?
+  userId      String?  @map("user_id")
+  contactUser User?    @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Task {
+  id           String     @id @default(cuid())
+  type         String
+  status       TaskStatus @default(PENDING)
+  payload      Json
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  errorMessage String?
+}
+
+model Show {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  image     String
+  video     String
+  mp3       String
+  date      String
+  number    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+// prisma/schema.prisma
+
+model Notification {
+  id          String   @id @default(cuid())
+  userId      String
+  userMediaId String?
+  type        String
+  title       String
+  message     String
+  link        String?
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userMedia   UserMedia? @relation(fields: [userMediaId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+  @@index([createdAt])
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  BLOCKED
+}
+
+// Friend relationships between registered users
+model Friendship {
+  id          String           @id @default(cuid())
+  initiatorId String
+  initiator   User             @relation("FriendshipInitiator", fields: [initiatorId], references: [user_id], onDelete: Cascade)
+  receiverId  String
+  receiver    User             @relation("FriendshipReceiver", fields: [receiverId], references: [user_id], onDelete: Cascade)
+  status      FriendshipStatus @default(PENDING)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@unique([initiatorId, receiverId])
+  @@index([initiatorId])
+  @@index([receiverId])
+  @@index([status])
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+  CANCELLED
+}
+
+// Email invites for non-registered users
+model FriendInvite {
+  id            String       @id @default(cuid())
+  inviterId     String
+  inviter       User         @relation(fields: [inviterId], references: [user_id], onDelete: Cascade)
+  inviteeEmail  String
+  inviteeName   String? // Optional name provided by inviter
+  token         String       @unique // Unique token for invite link
+  status        InviteStatus @default(PENDING)
+  message       String? // Optional personal message
+  acceptedById  String? // User ID who accepted the invite
+  expiresAt     DateTime // Invite expiration date
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([inviterId])
+  @@index([inviteeEmail])
+  @@index([token])
+  @@index([status])
+}

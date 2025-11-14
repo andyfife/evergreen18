@@ -1,0 +1,203 @@
+{
+  "Leadership": [
+    {
+      "name": "Winnie Wong",
+      "name_zh": "黄颖妍 博士",
+      "prefix": "Prof.",
+      "suffix": "Ph.D.",
+      "title": "President & CEO",
+      "category": "LEADERSHIP",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/WinnieWong-1-edited.jpeg?resize=190%2C190&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 1
+    },
+    {
+      "name": "Jo Bell Whitlatch",
+      "name_zh": "惠特拉奇 博士",
+      "prefix": "Prof.",
+      "suffix": "Ph.D.",
+      "title": "Secretary",
+      "category": "LEADERSHIP",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/whitlatchj.webp?resize=150%2C150&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 2
+    },
+    {
+      "name": "Susan Wong",
+      "name_zh": "黃素姸 會計師",
+      "prefix": "Ms.",
+      "suffix": "CPA",
+      "title": "Treasurer",
+      "category": "LEADERSHIP",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/SusanWong.webp?resize=150%2C150&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 3
+    },
+    {
+      "name": "Jerry Xu",
+      "name_zh": "许彦龙 博士",
+      "prefix": "Dr.",
+      "suffix": "Ph.D.",
+      "title": "Finance & Technology",
+      "category": "LEADERSHIP",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/JerryXu-edited.webp?resize=146%2C146&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 4
+    },
+    {
+      "name": "Rodney Amen",
+      "name_zh": "謝哲光 先生",
+      "prefix": "Mr.",
+      "suffix": null,
+      "title": "Operation",
+      "category": "LEADERSHIP",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/Rodney.webp?resize=150%2C150&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 5
+    }
+  ],
+  "AdvisoryBoard": [
+    {
+      "name": "Faith Chao",
+      "prefix": "Prof.",
+      "suffix": "Ph.D.",
+      "title": "Initiative & Programs",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/FaithChao.webp?resize=768%2C712&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 6
+    },
+    {
+      "name": "Nancy MacKay",
+      "prefix": "Ms.",
+      "suffix": "MLIS",
+      "title": "Oral History",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/03/NancyMacKay.jpg?resize=176%2C176&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 7
+    },
+    {
+      "name": "Weiming Tu",
+      "prefix": "Prof.",
+      "suffix": "Ph.D.",
+      "title": "Programs",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/TuWeiMing-edited.jpeg?resize=1500%2C1500&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 8
+    },
+    {
+      "name": "Lili Luo",
+      "prefix": "Prof.",
+      "suffix": "Ph.D.",
+      "title": "Research & Evaluation",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/SJSU_iSchool_Professor_Lili_Luo-edited.jpg?resize=361%2C361&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 9
+    },
+    {
+      "name": "Bin Gui",
+      "prefix": "Mr.",
+      "suffix": "J.D.",
+      "title": "Legal Counsel",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/GuiBin.webp?resize=150%2C150&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 10
+    },
+    {
+      "name": "Cecilia Fok",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Finance",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/CeciliaFok.webp?resize=150%2C150&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 11
+    },
+    {
+      "name": "Rob Davis",
+      "prefix": "Mr.",
+      "suffix": null,
+      "title": "Impact Assessment",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/images.jpg?resize=225%2C225&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 12
+    },
+    {
+      "name": "Carol Priestley",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Digital Access",
+      "category": "ADVISORY",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/carolpriestley.webp?resize=100%2C100&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 13
+    }
+  ],
+  "StaffAndVolunteers": [
+    {
+      "name": "Guojuan Shang",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Programs",
+      "category": "STAFF_AND_VOLUNTEERS",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/JessicaShang-edited.jpg?resize=512%2C512&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 14
+    },
+    {
+      "name": "Donna Yeung",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Technology IT",
+      "category": "STAFF_AND_VOLUNTEERS",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/04/donnayeung01-edited.png?resize=184%2C184&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 15
+    },
+    {
+      "name": "May Wong",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Technology Support",
+      "category": "STAFF_AND_VOLUNTEERS",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/MayWong.jpg?resize=200%2C200&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 16
+    },
+    {
+      "name": "Sharon Lau",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "HR & Operation",
+      "category": "STAFF_AND_VOLUNTEERS",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/SharonLau-edited.jpg?resize=768%2C768&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 17
+    },
+    {
+      "name": "Ashley Thoene",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Operation",
+      "category": "STAFF_AND_VOLUNTEERS",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/StaffAndVolunteerNameTagIcon.png?resize=256%2C256&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 18
+    },
+    {
+      "name": "Ashlyn Wong",
+      "prefix": "Ms.",
+      "suffix": null,
+      "title": "Archive",
+      "category": "STAFF_AND_VOLUNTEERS",
+      "image_url": "https://i0.wp.com/evergreeneducation.org/wp-content/uploads/2025/02/AshlynWong-edited.jpeg?resize=876%2C876&ssl=1",
+      "isEmiriti": "false",
+      "sortOrder": 19
+    }
+  ]
+}
